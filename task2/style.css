@@ -1,0 +1,75 @@
+/* Reset default margin and padding */
+body, h1, form, label, input, select, option {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style container */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style form */
+form {
+    margin-top: 20px;
+    text-align: center; /* Mengatur teks dalam form menjadi tengah */
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left; /* Mengatur teks label menjadi kiri */
+}
+
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto; /* Mengatur kotak input menjadi tengah */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Menghindari lebar input melewati padding */
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+table td {
+    padding: 10px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+
+
+table tr:last-child td {
+    border-bottom: none;
+}
