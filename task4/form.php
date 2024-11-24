@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pendaftaran</title>
     <style>
-        /* Global styles */
+        /* Styling untuk formulir */
         * {
             margin: 0;
             padding: 0;
@@ -19,10 +19,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-image: url('Photoshoot-_ITERA2020-34-min-scaled.jpg');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
+            background: #e0f7fa;
         }
 
         .container {
@@ -49,7 +46,6 @@
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
             margin-top: 6px;
             margin-bottom: 16px;
         }
@@ -79,11 +75,12 @@
 </head>
 <body>
     <div class="container">
+        <!-- Form pendaftaran -->
         <form action="process.php" method="post" enctype="multipart/form-data" id="registrationForm">
             <h1>Form Data Diri</h1>
 
             <label for="fullname">Nama Lengkap:</label>
-            <input type="text" id="fullname" name="name" required minlength="3">
+            <input type="text" id="fullname" name="fullname" required minlength="3">
             <div class="error" id="fullnameError"></div>
 
             <label for="email">Email:</label>
@@ -107,14 +104,14 @@
     </div>
 
     <script>
+        // Validasi client-side
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             const fullname = document.getElementById('fullname').value;
             const password = document.getElementById('password').value;
             const fileInput = document.getElementById('uploadFile').files[0];
-
             let hasError = false;
 
-            // Clear previous errors
+            // Clear error messages
             document.querySelectorAll('.error').forEach(el => el.textContent = '');
 
             // Validate full name
@@ -129,10 +126,10 @@
                 hasError = true;
             }
 
-            // Validate file input
+            // Validate file
             if (fileInput) {
-                if (fileInput.size > 2 * 1024 * 1024) {
-                    document.getElementById('fileError').textContent = "Ukuran file maksimal 2 MB.";
+                if (fileInput.size > 2 * 1024 * 1024) { // Max size 2MB
+                    document.getElementById('fileError').textContent = "Ukuran file maksimal 2MB.";
                     hasError = true;
                 }
                 if (fileInput.type !== "text/plain") {
