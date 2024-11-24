@@ -1,20 +1,23 @@
 <?php
+session_start(); // Memulai session
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validasi input
     $errors = [];
     $fullname = trim($_POST['fullname']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $phone = trim($_POST['phone']);
+    $fileData = [];
 
+    // Validasi input
     if (empty($fullname) || strlen($fullname) < 3) {
         $errors[] = "Nama lengkap minimal 3 karakter.";
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Format email tidak valid.";
     }
-    if (strlen($password) < 6) {
-        $errors[] = "Password minimal 6 karakter.";
+    if (strlen($password) < 8) {
+        $errors[] = "Password minimal 8 karakter.";
     }
     if (!preg_match('/^[0-9]{10,13}$/', $phone)) {
         $errors[] = "Nomor telepon harus terdiri dari 10-13 digit angka.";
@@ -29,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             if (mime_content_type($file['tmp_name']) !== 'text/plain') {
                 $errors[] = "Hanya file teks yang diperbolehkan.";
+            } else {
+                $fileData = explode("\n", file_get_contents($file['tmp_name']));
             }
         } else {
             $errors[] = "Gagal mengunggah file.";
@@ -37,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "File harus diunggah.";
     }
 
+    // Jika ada error, tampilkan pesan
     if (!empty($errors)) {
         echo "<h3>Error:</h3><ul>";
         foreach ($errors as $error) {
@@ -46,22 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Baca file
-    $fileContent = file_get_contents($file['tmp_name']);
-    $fileData = explode("\n", $fileContent);
-
-    // Browser info
-    $browserInfo = $_SERVER['HTTP_USER_AGENT'];
-
-    // Simpan data ke session untuk ditampilkan di result.php
-    session_start();
+    // Simpan data ke session
     $_SESSION['formData'] = [
         'fullname' => $fullname,
         'email' => $email,
         'password' => $password,
         'phone' => $phone,
         'fileData' => $fileData,
-        'browserInfo' => $browserInfo,
+        'browserInfo' => $_SERVER['HTTP_USER_AGENT'],
     ];
 
     // Redirect ke result.php
